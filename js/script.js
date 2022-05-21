@@ -1,3 +1,7 @@
+
+
+   
+ 
  // use a V figure instead of MinusLine in the TreeExpanderButton
  go.Shape.defineFigureGenerator("ExpandedLine", (shape, w, h) => {
     return new go.Geometry()
@@ -87,7 +91,7 @@
             new go.Binding("source", "isTreeLeaf", imageConverter).ofObject()),
           $(go.TextBlock,
             { font: '15pt Verdana, sans-serif' },
-            new go.Binding("text", "key", s => "lan " + s))
+            new go.Binding("text", "key", s => s))
         )  // end Horizontal Panel
       );  // end Node
 
@@ -106,29 +110,57 @@
     //     $(go.Shape,
     //       { stroke: 'gray', strokeDashArray: [1,2] }));
 
-    // create a random tree
-    var nodeDataArray = [{ key: 0 }];
-    var max = 4;
-    var count = 0;
+    // create a tree
+    
+
+    fetch("http://localhost:3000/api/cities")
+      .then(res => res.json())
+      .then(data => {
+        var nodeDataArray = [{ key: "Türkiye" }];
+        data.data.forEach(element => {
+          nodeDataArray.push({ key: element.il_adi, parent: "Türkiye" });
+          if (element.ilceler) {
+            element.ilceler.forEach(ilce => {
+              nodeDataArray.push({ key: ilce.ilce_adi, parent: element.il_adi });
+            });
+          }
+        });
+        myDiagram.model = new go.TreeModel(nodeDataArray);
+      });
+
+
+      
+    /* var max = 14;
+    var count = 0; *//* 
     while (count < max) {
       count = makeTree(1, count, max, nodeDataArray, nodeDataArray[0]);
-    }
-    myDiagram.model = new go.TreeModel(nodeDataArray);
+    } */
+    /* makeTree(1, count, max, nodeDataArray, nodeDataArray[0]) */
+    
+    
   }
 
-  function makeTree(level, count, max, nodeDataArray, parentdata) {
-    var numchildren = Math.floor(Math.random() * 10); 
+ /*  function makeTree(level, count, max, nodeDataArray, parentdata) {
+    let dataArr = [];
+    fetch('http://localhost:3000/api/cities')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      });
+      
+    var numchildren = 4; // parentının kaç alt kökü olacağı
     for (var i = 0; i < numchildren; i++) {
       if (count >= max) return count;
       count++;
       var childdata = { key: count, parent: parentdata.key };
-      nodeDataArray.push(childdata);
-      if (level > 0 && Math.random() > 0.5) {
-        count = makeTree(level - 1, count, max, nodeDataArray, childdata);
+          console.log(childdata);
+          nodeDataArray.push(childdata);
+          if (level > 0 ) {
+            count = makeTree(level - 1, count, max, nodeDataArray, childdata);
       }
-    }
+    };     
     return count;
-  }
+  } */
 
   // takes a property change on either isTreeLeaf or isTreeExpanded and selects the correct image to use
   function imageConverter(prop, picture) {
@@ -144,10 +176,3 @@
     }
 }
   window.addEventListener('DOMContentLoaded', init);
-
-
-  fetch('http://localhost:3000/api/cities')
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.data);      
-    })
