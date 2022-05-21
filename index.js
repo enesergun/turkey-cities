@@ -3,6 +3,11 @@ const data = require('./turkiye.json');
 
 const server = express();
 
+server.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
 server.get('/', (req, res) => {
   res.send('Hello World!');
 });
