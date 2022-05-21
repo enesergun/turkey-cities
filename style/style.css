@@ -6,10 +6,13 @@
 
 #sample {
     height: 100vh;
+    background: rgb(110, 146, 161);
 }
 
-#myDiagramDiv {
-    
+#myDiagramDiv {    
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    background: rgb(223, 223, 223);    
     margin: 0 auto;  
     top: 50%;
     left: 25%;
@@ -20,3 +23,4 @@
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
     cursor: auto;
 }
+

@@ -1,8 +1,4 @@
-
-
-   
- 
- // use a V figure instead of MinusLine in the TreeExpanderButton
+// use a V figure instead of MinusLine in the TreeExpanderButton
  go.Shape.defineFigureGenerator("ExpandedLine", (shape, w, h) => {
     return new go.Geometry()
           .add(new go.PathFigure(0, 0.25*h, false)
@@ -78,19 +74,20 @@
           }),
         $(go.Panel, "Horizontal",
           { position: new go.Point(18, 0) },
-          new go.Binding("background", "isSelected", s => s ? "lightblue" : "white").ofObject(),
+          new go.Binding("background", "isSelected", s => s ? "lightblue" : "transparent").ofObject(),
           $(go.Picture,
-            {
-              width: 18, height: 18,
+            {              
+              width: 18, height: 18,              
               margin: new go.Margin(0, 4, 0, 0),
-              imageStretch: go.GraphObject.Uniform
+              imageStretch: go.GraphObject.Uniform,
+
             },
             // bind the picture source on two properties of the Node
             // to display open folder, closed folder, or document
             new go.Binding("source", "isTreeExpanded", imageConverter).ofObject(),
             new go.Binding("source", "isTreeLeaf", imageConverter).ofObject()),
           $(go.TextBlock,
-            { font: '15pt Verdana, sans-serif' },
+            { font: '15pt Verdana, sans-serif'},
             new go.Binding("text", "key", s => s))
         )  // end Horizontal Panel
       );  // end Node
