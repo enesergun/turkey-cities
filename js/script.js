@@ -98,21 +98,10 @@
     // without lines
     myDiagram.linkTemplate = $(go.Link);
 
-    // // with lines
-    // myDiagram.linkTemplate =
-    //   $(go.Link,
-    //     { selectable: false,
-    //       routing: go.Link.Orthogonal,
-    //       fromEndSegmentLength: 4,
-    //       toEndSegmentLength: 4,
-    //       fromSpot: new go.Spot(0.001, 1, 7, 0),
-    //       toSpot: go.Spot.Left },
-    //     $(go.Shape,
-    //       { stroke: 'gray', strokeDashArray: [1,2] }));
+    
 
     // create a tree
     
-
     fetch("http://localhost:3000/api/cities")
       .then(res => res.json())
       .then(data => {
@@ -127,51 +116,20 @@
         });
         myDiagram.model = new go.TreeModel(nodeDataArray);
       });
-
-
-      
-    /* var max = 14;
-    var count = 0; *//* 
-    while (count < max) {
-      count = makeTree(1, count, max, nodeDataArray, nodeDataArray[0]);
-    } */
-    /* makeTree(1, count, max, nodeDataArray, nodeDataArray[0]) */
-    
     
   }
 
- /*  function makeTree(level, count, max, nodeDataArray, parentdata) {
-    let dataArr = [];
-    fetch('http://localhost:3000/api/cities')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      });
-      
-    var numchildren = 4; // parentının kaç alt kökü olacağı
-    for (var i = 0; i < numchildren; i++) {
-      if (count >= max) return count;
-      count++;
-      var childdata = { key: count, parent: parentdata.key };
-          console.log(childdata);
-          nodeDataArray.push(childdata);
-          if (level > 0 ) {
-            count = makeTree(level - 1, count, max, nodeDataArray, childdata);
-      }
-    };     
-    return count;
-  } */
 
   // takes a property change on either isTreeLeaf or isTreeExpanded and selects the correct image to use
   function imageConverter(prop, picture) {
     var node = picture.part;
     if (node.isTreeLeaf) {
-      return "images/document.svg";
+      return "../images/document.svg";
     } else {
       if (node.isTreeExpanded) {
-        return "images/openFolder.svg";
+        return "../images/openFolder.svg";
       } else {
-        return "images/closedFolder.svg";
+        return "../images/closedFolder.svg";
       }
     }
 }
