@@ -1,5 +1,5 @@
 const express = require('express');
-const data = require('./turkiye.json');
+const data = require('../turkiye.json');
 
 const server = express();
 
